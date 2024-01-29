@@ -17,6 +17,7 @@ class Jokes {
       id: json['id'],
     );
   }
+  List<Jokes> jokeList = [];
 
   Future<void> getJokes() async {
     try {
@@ -25,8 +26,8 @@ class Jokes {
               'https://official-joke-api.appspot.com/jokes/ten'));
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
-         List<Jokes> jokes = jsonData.map((json) => Jokes.fromJson(json)).toList();
-
+        List<Jokes> jokes = jsonData.map((json) => Jokes.fromJson(json)).toList();
+        jokeList = jokes;
         for(Jokes joke in jokes ) {
           print("setup: ${joke.setup}");
           print("punchline: ${joke.punchline}");
