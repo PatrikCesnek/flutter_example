@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'detail_view.dart'; // Import the DetailView class
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,28 +14,32 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        backgroundColor: Colors.blue[900],
-        title: Text("Choose a location"),
-        centerTitle: true,
-        foregroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-            child: Card(
-              child: ListTile(
-                onTap: () {
-                  print(index);
-                },
-                title: Text("Text of $index"),
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+              child: Card(
+                child: ListTile(
+                  onTap: () {
+                    print(index);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailView(
+                            index: index,
+                            punchline: "Temporary punchline",
+                        ),
+                      ),
+                    );
+                  },
+                  title: Text("Temporary setup of: $index"),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

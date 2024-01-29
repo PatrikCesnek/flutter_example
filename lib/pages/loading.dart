@@ -20,12 +20,13 @@ class _LoadingState extends State<Loading> {
     );
     await instance.getJokes();
 
-    // Navigator.pushReplacementNamed(context, "/home", arguments: {
-    //   'type': instance.type,
-    //   'setup': instance.setup,
-    //   'punchline': instance.punchline,
-    //   'id': instance.id,
-    // });
+    Navigator.pushReplacementNamed(context, "/home", arguments: {
+      'type': instance.type,
+      'setup': instance.setup,
+      'punchline': instance.punchline,
+      'id': instance.id,
+      'jokeList': instance.jokeList
+    });
   }
 
   @override

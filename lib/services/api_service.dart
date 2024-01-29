@@ -6,8 +6,15 @@ class Jokes {
   String setup;
   String punchline;
   int id;
+  List<Jokes> jokeList = [];
 
-  Jokes({ required this.type, required this.setup, required this.punchline, required this.id});
+
+  Jokes({
+    required this.type,
+    required this.setup,
+    required this.punchline,
+    required this.id,
+  });
 
   factory Jokes.fromJson(Map<String, dynamic> json) {
     return Jokes(
@@ -17,7 +24,6 @@ class Jokes {
       id: json['id'],
     );
   }
-  List<Jokes> jokeList = [];
 
   Future<void> getJokes() async {
     try {
