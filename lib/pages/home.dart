@@ -46,6 +46,10 @@ class _HomeState extends State<Home> {
     } else {
       try {
         return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("Choose a setup"),
+          ),
           backgroundColor: Colors.grey[200],
           body: ListView.builder(
             itemCount: jokeList.length,
