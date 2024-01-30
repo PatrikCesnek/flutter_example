@@ -13,12 +13,14 @@ class DetailView extends StatelessWidget {
         title: Text('Punchline View'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Text of $index'),
-            Text('Punchline: $punchline'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Punchline: $punchline'),
+            ],
+          ),
         ),
       ),
     );

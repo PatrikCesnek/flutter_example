@@ -1,44 +1,23 @@
-import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_example/models/jokes.dart';
 
-class Jokes {
-  final String type;
-  final String setup;
-  final String punchline;
-  final int id;
-  List<Jokes> jokesList = [];
+class ApiService {
+  static const String apiEndpoint = 'https://official-joke-api.appspot.com/jokes/ten';
 
-  Jokes({
-    required this.type,
-    required this.setup,
-    required this.punchline,
-    required this.id,
-  });
-
-  factory Jokes.fromJson(Map<String, dynamic> json) {
-    return Jokes(
-      type: json['type'] ?? '',
-      setup: json['setup'] ?? '',
-      punchline: json['punchline'] ?? '',
-      id: json['id'] ?? 0,
-    );
-  }
-
-  static Future<List<Jokes>> fetchJokes() async {
+  static Future<List<Jokes>> getJokes() async {
     try {
-      Response response = await get(
-        Uri.parse('https://official-joke-api.appspot.com/jokes/ten'),
-      );
+      final response = await http.get(Uri.parse(apiEndpoint));
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
-        List<Jokes> jokesList = jsonData.map((json) => Jokes.fromJson(json)).toList();
-        return jokesList;
+        List<Jokes> jokes = jsonData.map((json) => Jokes.fromJson(json)).toList();
+        return jokes;
       } else {
-        throw Exception('Failed to load data');
+        throw Exception('Failed to load jokes');
       }
     } catch (e) {
-      print("There was an error $e");
+      print("Error in ApiService: $e");
       throw e;
     }
   }
