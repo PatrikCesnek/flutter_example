@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail_view.dart';
 import 'package:flutter_example/services/api_service.dart';
-import 'package:flutter_example/services/api_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
