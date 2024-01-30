@@ -18,16 +18,15 @@ class _LoadingState extends State<Loading> {
         punchline: "Inverse",
         id: 133
     );
-    await instance.getJokes();
 
     Navigator.pushReplacementNamed(context, "/home", arguments: {
       'type': instance.type,
       'setup': instance.setup,
       'punchline': instance.punchline,
       'id': instance.id,
-      'jokeList': instance.jokeList
+      'jokeList': instance.jokesList
     });
-  }
+   }
 
   @override
   void initState() {

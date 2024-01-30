@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'detail_view.dart'; // Import the DetailView class
-
+import 'detail_view.dart';
+import 'package:flutter_example/services/api_service.dart';
+import 'package:flutter_example/services/api_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,35 +11,59 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  late String type;
+  late String setup;
+  late String punchline;
+  late int id;
+  late List<Jokes> jokeList;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    setState(() {
+      type = arguments['type'];
+      setup = arguments['setup'];
+      punchline = arguments['punchline'];
+      id = arguments['id'];
+      jokeList = List<Jokes>.from(arguments['jokeList'].map((json) => Jokes.fromJson(json)));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-              child: Card(
-                child: ListTile(
-                  onTap: () {
-                    print(index);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailView(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: ListView.builder(
+            itemCount: jokeList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailView(
                             index: index,
-                            punchline: "Temporary punchline",
+                            punchline: jokeList[index].punchline,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  title: Text("Temporary setup of: $index"),
+                      );
+                    },
+                    title: Text('${jokeList[index].setup}'),
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

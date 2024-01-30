@@ -10,7 +10,7 @@ class DetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail View'),
+        title: Text('Punchline View'),
       ),
       body: Center(
         child: Column(
